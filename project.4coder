@@ -1,0 +1,22 @@
+version(1);
+
+project_name = "maze";
+
+patterns = {
+    "*.cpp",
+    "*.h",
+    "*.bat",
+    "*.4coder"
+};
+
+blacklist_patterns = {
+    ".*",
+};
+
+load_paths = {
+    {
+		{
+            {"/code", .relative = true, .recursive = true, }
+		}, .os = "win" 
+	}
+};
