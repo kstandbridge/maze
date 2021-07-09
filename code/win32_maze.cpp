@@ -794,7 +794,7 @@ ToggleFullscreen(HWND Window)
 }
 
 internal void
-Win32ProcessPendingMessages(win32_state *State, game_controller_input *KeyboardController)
+Win32ProcessPendingMessages(win32_state *State, game_controller_input *KeyboardController, game_memory *GameMemory)
 {
     MSG Message;
     while(PeekMessage(&Message, 0, 0, 0, PM_REMOVE))
@@ -896,6 +896,13 @@ Win32ProcessPendingMessages(win32_state *State, game_controller_input *KeyboardC
                             {
                                 Win32EndInputPlayBack(State);
                             }
+                        }
+                    }
+                    else if(VKCode == VK_F5)
+                    {
+                        if(IsDown)
+                        {
+                            GameMemory->IsInitialized = false;
                         }
                     }
 #endif
@@ -1104,7 +1111,7 @@ WinMain(HINSTANCE Instance,
             CreateWindowExA(
                             0, // WS_EX_TOPMOST|WS_EX_LAYERED,
                             WindowClass.lpszClassName,
-                            "Handmade Hero",
+                            "Maze",
                             WS_OVERLAPPEDWINDOW|WS_VISIBLE,
                             CW_USEDEFAULT,
                             CW_USEDEFAULT,
@@ -1280,7 +1287,7 @@ WinMain(HINSTANCE Instance,
                             OldKeyboardController->Buttons[ButtonIndex].EndedDown;
                     }
                     
-                    Win32ProcessPendingMessages(&Win32State, NewKeyboardController);
+                    Win32ProcessPendingMessages(&Win32State, NewKeyboardController, &GameMemory);
                     
                     if(!GlobalPause)
                     {

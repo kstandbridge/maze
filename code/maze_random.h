@@ -516,5 +516,20 @@ global_variable u32 RandomNumberTable[] =
     0x0d5d155, 0x4363005, 0x2cbd064, 0x5c18f03, 0x214bedd, 0x42ef202, 0x41827cd, 0x27a8fe9,
 };
 
+
+global_variable u32 RandomNumberIndex = 0;
+
+inline u32
+RandomChoice(u32 Max)
+{
+    u32 Result = RandomNumberTable[RandomNumberIndex++] % Max;
+    if(RandomNumberIndex >= ArrayCount(RandomNumberTable))
+    {
+        RandomNumberIndex = 0;
+    }
+    
+    return Result;
+}
+
 #define MAZE_RANDOM_H
 #endif
